@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '@/services/api';
 
@@ -22,13 +22,26 @@ export default {
   name: 'App',
   setup() {
     const router = useRouter();
-    const isLoggedIn = computed(() => !!localStorage.getItem('token'));
+    const isLoggedIn = ref(false);
+
+    const checkLoginStatus = () => {
+      isLoggedIn.value = !!localStorage.getItem('token');
+    };
 
     const logout = () => {
       localStorage.removeItem('token');
-      api.removeAuthHeader(); // 로그아웃 시 인증 헤더 제거
+      api.removeAuthHeader();
+      isLoggedIn.value = false;
       router.push('/login');
     };
+
+    onMounted(() => {
+      checkLoginStatus();
+    });
+
+    watch(() => router.currentRoute.value, () => {
+      checkLoginStatus();
+    });
 
     return {
       isLoggedIn,

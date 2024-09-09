@@ -7,7 +7,6 @@ const api = axios.create({
   withCredentials: true
 });
 
-// 요청 인터셉터 추가
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -22,36 +21,12 @@ api.interceptors.request.use(
 );
 
 export default {
-  getAllPosts() {
-    return api.get('/post').then((response) => response.data);
-  },
-
-  getPostById(id) {
-    return api.get(`/post/${id}`).then((response) => response.data);
-  },
-
-  createPost(formData) {
-    return api.post('/post', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((response) => response.data);
-  },
-
-  updatePost(id, post) {
-    return api.put(`/post/${id}`, post).then((response) => response.data);
-  },
-
-  deletePost(id) {
-    return api.delete(`/post/${id}`);
-  },
-
   login(username, password) {
     return api.post('/auth/login', { username, password });
   },
 
-  register(username, password) {
-    return api.post('/auth/register', { username, password });
+  register(name, phoneNumber, username, email, password) {
+    return api.post('/auth/register', { name, phoneNumber, username, email, password });
   },
 
   setAuthHeader(token) {
@@ -60,5 +35,11 @@ export default {
 
   removeAuthHeader() {
     localStorage.removeItem('token');
-  }
+  },
+
+  getAllPosts() {
+    return api.get('/post');
+  },
+
+  // Other methods...
 };
