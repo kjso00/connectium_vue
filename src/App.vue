@@ -3,6 +3,8 @@
     <nav>
       <router-link to="/">홈</router-link> |
       <router-link to="/post/create">새 게시글 작성</router-link>
+      <router-link to="/map">맵 테스트</router-link>
+
       <template v-if="!isLoggedIn">
         <router-link to="/login">Login</router-link> |
         <router-link to="/register">Register</router-link>

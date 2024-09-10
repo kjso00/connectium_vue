@@ -6,6 +6,7 @@ import PostList from '@/components/PostList.vue';
 import UserLogin from '@/components/Login.vue';
 import UserRegister from '@/components/Register.vue';
 import OAuth2Redirect from '@/components/OAuth2Redirect.vue';
+import kakaomap from '@/components/kakaomap.vue';
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/oauth2/redirect',
     name: 'OAuth2Redirect',
     component: OAuth2Redirect,
+  },
+  { 
+    path: "/map",
+    name: "kakaomap",
+    component:kakaomap,
   }
 ];
 
